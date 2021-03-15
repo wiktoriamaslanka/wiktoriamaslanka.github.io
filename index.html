@@ -2,26 +2,150 @@
 <html>
 <head>
 <style>
-body {
-  background-color: lightpink;
+
+body{
+	background-color: white;
+	margin-right: 0px;
+    margin-left: 0px;
+    margin-top: 0px;
+    padding: 0px;
 }
 
-h1 {
-  color: white;
+.container{
+	display: grid;
+    width: 710px;
+  	height: 1000px;
+    border : 1px black solid;
+	grid-template-columns: repeat(6,1fr);
+    grid-template-rows: repeat(6,1fr);
+    background-color: white;
+    grid-template-areas:
+    "photo name"
+    "about work"
+    "about skills"
+    "about education"
+    "about  stopka";
+}
+.grid-area {
+    padding: 1em 1em 1em 1em ;
+}
+
+.name{
+	grid-area: name;
+	grid-column: 3/ -1 ; 
+    grid-row: 1 / 2;
+    background-color: gray;
+    align-items: right;
+    font-size: 30px;
+    font-family: Times New Roman; 
+}
+
+.about
+{
+	grid-area: about;
+	grid-column: 1 / 3; 
+	grid-row: 2/ -1;
+    background-color: lightgray;
+    padding: 15px;
+    text-align: center;
+}
+.photo {
+    grid-area: photo;
+    grid-column: 1/ 3 ; 
+    grid-row: 1/3;
+    background-color: lightgray;
+    justify-self: streth;
+    padding-top: 15px;
+    padding-left: 50px;
+    
+}
+.work {
+    grid-area: work;
+    grid-column: 3/ -1; 
+	grid-row: 2/ 3;
+    background-color: white;
+    padding: 15px;
+}
+
+.skills {
+    grid-area : skills;
+    grid-column: 3/ -1; 
+	grid-row: 3/ 4;
+    background-color: white;
+    padding: 15px;
+}
+
+.education {
+    grid-area : education;
+    grid-column: 3/ -1; 
+	grid-row: 4/5;
+    background-color: white;
+    padding: 15px;
+}
+
+.stopka {
+    grid-area: stopka;
+    grid-column: 3/ -1; 
+	grid-row: 6/ -1;
+    background-color: white;
+    font-size: 9px;
+    align-self: end;
+    padding: 15px;
+}
+.wrapper {
+    padding        : 0;
+    display        : flex;
+    flex-direction : columns;
+    align-items   : center;
+}
+p2{
+  font-family: New Times Roman ;
+  font-size: 14px;
+  color: black; 
+}
+infobox2 {
+  font-family: New Times Roman;
+  font-size: 16px;
+  color: black;
+}
+naglowki {
+  font-family: New Times Roman;
+  font-size: 18px;
+  color: black;
+  text-align: left;
+  font-weight: bold;
+}
+opis{
+  font-family: New Times Roman ;
+  font-size: 14px;
+  margin-bottom: 80px;
+  color: black;
   text-align: center;
+  font-weight: bold;
 }
-
-p {
-  color: white;
-  font-family: Times New Roman;
-  font-size: 25px;
+opis2{
+  font-family: New Times Roman ;
+  font-size: 14px;
+  color: black; 
+  text-align: left;
 }
 </style>
 </head>
 <body>
-
-<h1>My First CSS Example</h1>
-<p>Hello world</p>
-
+<main class="wrapper">
+<article class="container">
+	<section class="grid-area name">Wiktoria Maślanka<br>CV</section>
+  	<section class="grid-area photo" ><img height="130" width="130"  src="https://sites.psu.edu/siowfa16/files/2016/10/YeDYzSR-10apkm4.png"></section>
+  	<section class="grid-area about"><p2>Data i miejsce urodzenia </p2><br> <infobox2>02.06.2000 Zawiercie </infobox2><hr><br><p2>Adres</p2><br><infobox2>ul.Dolna 7 <br> 42-425 Szczekociny</infobox2><hr><br><p2>Telefon</p2><br> <infobox2>608 367 908 </infobox2><hr><br><p2>E-mail</p2><br> <infobox2><a href="default.asp" target="_blank" >wiktoriamaslanka8@gmail.com</a></infobox2></section>
+  	<section class="grid-area work"><hr><naglowki>Doświadczenie</naglowki><hr><opis>05/2019 - 10/2019 </opis><br><opis2> Zakład Rachunkowości i Doradctwa "NEST" sp. z o.o. <li>praca z klientem <li>postawy ksiegowości<li> rozliczenia międzyokresowe</opis2>        			</section>
+  	<section class="grid-area education"><hr><naglowki>Wykształcenie</naglowki><hr><br><opis>10/2019 - obecnie </opis><p2><br> Akademia Górniczo-Hutnicza im.Stanisława Staszica w Krakowie</p2><br><br><opis>09/2016 - 06/2019 </opis><br><opis2> VII Liceum Ogólnnokształcące im. Zoffi Nałkowskiej w Krakowie</opis2></section>
+ 	 <section class="grid-area skills"><hr><naglowki>Umiejętności</naglowki><hr><br>
+  <li>język angielski - poziom B2
+  <li>język niemiecki - poziom B1
+  </section>
+  	<section class="grid-area stopka">Wyrażam zgodę na przetwarzanie moich danych osobowych przez (nazwa firmy) w celu prowadzenia rekrutacji na aplikowane przeze mnie stanowisko.</section>
+</article> 
+</main>
 </body>
 </html>
+
