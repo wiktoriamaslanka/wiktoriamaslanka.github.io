@@ -11,6 +11,35 @@ body{
     color: #222;
     margin: 0;
 }
+.links2
+{
+    display: none;
+}
+.aplikacje
+{
+    display:none;
+}
+.ilosc_wynikow
+{
+    display: none;
+}
+.kreska_pozioma
+{
+    display: none;
+}
+.zawartosc
+{
+    display: none;
+}
+.lupa2
+{
+    display: none;
+}
+.iks
+{
+    display: none;
+}
+
 .up
 {
     display: flex;
@@ -19,11 +48,17 @@ body{
     padding: 10px;
     flex-shrink: 0;
     box-sizing: border-box;
-    height: 60px;
+    height: 60px;    
 }
-.srodek{
+.up_items
+{
+    display: inline-block;
+    flex-grow: 1;
+    align-items: center;
+}
+.middle{
     
-    padding-bottom: 7px;
+    padding-bottom: 70px;
 }
 .logo
 {
@@ -97,7 +132,7 @@ input
     font-weight: 400;
     text-align: start;
 }
-.przyciski{
+.buttons{
     height: 70px;
 }
 .button
@@ -106,7 +141,7 @@ input
     text-align: center;
     padding-top: 20px;
 }
-.przycisk1
+.button1
 {
     display: inline-block;
     background-color: #F8F9FA;
@@ -124,7 +159,7 @@ input
     cursor: pointer;
 }
 
-.przycisk2
+.button2
 {
     display: inline-block;
     background-color: #F8F9FA;
@@ -147,13 +182,6 @@ input
     flex-direction: column;
     justify-content: space-between;
     background: #f2f2f2;
-
-    flex-shrink: 0;
-    box-sizing: border-box;
-    display: block;
-    padding: 0 20px;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
 }
 .polska{
     padding: 15px 30px;
@@ -178,7 +206,7 @@ input
     order: 3;
 }
 .neutralnosc{
-    order: 2; 
+    order: 2;
 }
 .neutral{
     padding-left: 10px;
@@ -253,6 +281,8 @@ zaloguj{
     outline: none;
     white-space: nowrap;
 }
+
+
 @media only screen and (max-width: 1200px)
 {
     .textdown{
