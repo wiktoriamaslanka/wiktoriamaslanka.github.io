@@ -1,8 +1,10 @@
-html, body
+.main *
+.main html, body
 {
     height: 100%;
 }
-body{
+.main body
+{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -11,36 +13,36 @@ body{
     color: #222;
     margin: 0;
 }
-.links2
+.main .links2
 {
     display: none;
 }
-.aplikacje
+.main .aplikacje
 {
     display:none;
 }
-.ilosc_wynikow
+.main .ilosc_wynikow
 {
     display: none;
 }
-.kreska_pozioma
+.main .kreska_pozioma
 {
     display: none;
 }
-.zawartosc
+.main .zawartosc
 {
     display: none;
 }
-.lupa2
+.main .lupa2
 {
     display: none;
 }
-.iks
+.main .iks
 {
     display: none;
 }
 
-.up
+.main .up
 {
     display: flex;
     justify-content: flex-end;
@@ -50,17 +52,12 @@ body{
     box-sizing: border-box;
     height: 60px;    
 }
-.up_items
-{
-    display: inline-block;
-    flex-grow: 1;
-    align-items: center;
-}
-.middle{
+
+.main .middle{
     
     padding-bottom: 70px;
 }
-.logo
+.main .logo
 {
     display: flex;
     flex-direction: column;
@@ -68,7 +65,7 @@ body{
     padding-bottom: 7px;
     max-height: 92px;
 }
-.search
+.main .search
 {
     display: block;
     justify-content: center;
@@ -78,7 +75,7 @@ body{
     padding: 20px;
 }
 
-.write
+.main .write
 {
     border: 1px solid #dfe1e5;
     box-shadow: none;
@@ -92,28 +89,28 @@ body{
     background: #fff;
     display: flex;
 }
-.szukaj
+.main .szukaj
 {
     flex: 1;
     display: flex;
     padding: 5px 8px 0 16px;
     padding-left: 14px;
 }
-img.lupa
+.main img.lupa
 {
     margin: auto;
     height: 25px;
     padding-bottom: 8px;
 }
 
-img.klawiatura
+.main img.klawiatura
 {
     margin: auto;
     height: 18px;
     padding-bottom: 8px;
     padding-right: 10px;
 }
-input
+.main input
 {
     background-color: transparent;
     margin: 0;
@@ -132,16 +129,16 @@ input
     font-weight: 400;
     text-align: start;
 }
-.buttons{
+.main .buttons{
     height: 70px;
 }
-.button
+.main .button
 {
     display: block;
     text-align: center;
     padding-top: 20px;
 }
-.button1
+.main .button1
 {
     display: inline-block;
     background-color: #F8F9FA;
@@ -159,7 +156,7 @@ input
     cursor: pointer;
 }
 
-.button2
+.main .button2
 {
     display: inline-block;
     background-color: #F8F9FA;
@@ -176,47 +173,53 @@ input
     text-align: center;
     cursor: pointer;
 }
-.down
+.main .down
 {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     background: #f2f2f2;
+    flex-shrink: 0;
+    box-sizing: border-box;
+    display: block;
+    padding: 0 20px;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
-.polska{
+.main .polska{
     padding: 15px 30px;
     border-bottom: 1px solid #dadce0;
     font-size: 15px;
     color: rgba(0,0,0,.54);
 }
-.textdown{
+.main .textdown{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
     padding: 0 20px;
 }
-.textdown1{
+.main .textdown1{
     min-width: 30%;
     text-align: left;
     order: 1;  
 }
-.textdown2{
+.main .textdown2{
     text-align: right;
     min-width: 30%;
     order: 3;
 }
-.neutralnosc{
+.main .neutralnosc{
     order: 2;
 }
-.neutral{
+.main .neutral{
     padding-left: 10px;
 }
 
-img.listek{
+.main img.listek{
     height: 14px;
     margin-right: 6px;
 }
-.textneutral{
+.main .textneutral{
     white-space: nowrap;
     font-size: 14px;
     font-family: arial,sans-serif;
@@ -225,7 +228,7 @@ img.listek{
     padding: 13px;
     padding-left: 0;   
 }
-textdown1{
+.main textdown1{
     text-decoration: none;
     cursor: pointer;    
     color: #70757a;
@@ -235,7 +238,7 @@ textdown1{
     white-space: nowrap;
     display: inline-block; 
 }
-textup{
+.main textup{
     color: rgba(0,0,0,0.87);
     text-decoration: none;
     height: 24px;
@@ -255,12 +258,12 @@ textup{
     white-space: nowrap;
     width: 41.9125px;
 }
-kropki{
+.main kropki{
     display: inline-block;
     vertical-align: middle;
     padding: 4px;
 }
-zaloguj{
+.main zaloguj{
     font-family: Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
     font-weight: 500;
     font-size: 14px;
