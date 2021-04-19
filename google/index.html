@@ -6,7 +6,8 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="style2.css">
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-        <script src="vue.js" defer></script>
+        <script src="cities.js"></script>
+       
     </head>
     <body>
         <div id="app" :class="[googleSearch != '' ? 'results' : 'main']"> 
@@ -81,8 +82,18 @@
 
             <div class="ilosc_wynikow">
                 Około 15 200 000 wyników (0,44 s) 
+                <br><br>
+                <div class="vue-cities">
+                    <p>Miasta zawierające "{{ googleSearch }}":</p><br>
+                    <ul>
+                        <li v-for="city in filteredCities">					
+                            {{ city.name }}<br>
+                        </li>
+                    </ul>
+                </div>
             </div>
-            <div class="zawartosc">
+           
+            <div class="zawartosc" style="margin-top:230px;">
 
                 <div class="wynik">
                     <div class="naglowek">
@@ -315,6 +326,38 @@
                         </div>
                     </div>
             </div>     
-        </div>
+        </div> 
     </body>
+    <script>
+        var app = new Vue({
+          el: '#app',
+          data: {
+            googleSearch: '',
+            cities: window.cities,
+          },
+          computed: {
+            filteredCities: function () {
+              let wynik = this.cities.filter(city => city.name.includes(this.googleSearch))
+              if (wynik.length > 10) {
+                wynik = wynik.slice(0, 10)
+              }
+              return wynik
+            }
+          },
+          updated() {
+            this.$nextTick(() => {
+      
+              if (this.googleSearch.length > 0) {
+      
+                this.$refs.second.focus();
+      
+              } else {
+      
+                this.$refs.first.focus();
+      
+              }
+            })
+          }
+        });
+      </script>
 </html>

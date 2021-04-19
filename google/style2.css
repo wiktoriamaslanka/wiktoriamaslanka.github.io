@@ -358,3 +358,18 @@
     padding-right: 15px;
     padding-top: 6px;
 }
+ul li::before {
+    content: "\2022";
+    color: pink;
+  }
+  .results .vue-cities{
+    font-size:100%;
+    padding-bottom: 7px;
+    padding-top: 3px;
+    line-height: 25px;
+    padding-bottom: 80px;
+    line-height: 20px;
+    font-size: 15px;
+    list-style: no
+  }
+  

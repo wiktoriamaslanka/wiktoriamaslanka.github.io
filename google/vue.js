@@ -3,4 +3,6 @@ var app = new Vue({
     data: {
       googleSearch: ''
     }
-  })
+  });
+  
+		
