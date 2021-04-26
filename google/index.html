@@ -6,11 +6,11 @@
         <link rel="stylesheet" href="style.css">
         <link rel="stylesheet" href="style2.css">
         <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-        <script src="cities.js"></script>
+        <script src="./cities.js"></script>
        
     </head>
     <body>
-        <div id="app" :class="[googleSearch != '' ? 'results' : 'main']"> 
+        <div id="app" :class="[search.length > 0 ? 'results' : 'main']"> 
             <div class="up">
                 <div class="up_items">
                     <textup>Gmail</textup>
@@ -27,13 +27,19 @@
                     <div class="write">
                         <div class="szukaj">
                             <img class="lupa" src="lupa.png">
-                            <input v-model="googleSearch" type="text" maxlength="2048" title="Szukaj">
+                            <input v-model="googleSearch" type="text" maxlength="2048" title="Szukaj" v-on:click="ustaw()">
                             <svg class="iks" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
                             <span class="kreska"></span>
                             <img class="klawiatura" src="klawiatura.png">
                             <svg class="lupa2" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
                         </div>
-                    </div>
+                    <div class="lista">
+                            <ul v-for="miasto in filtredCities" @click="uzupelnij(miasto)">
+                                <img class="lupa1" src="lupa.png" title="Szukaj">
+                                {{googleSearch}}<b>{{ miasto.name.substring(googleSearch.length) }}</b>
+                            </ul>
+                        </div>
+                </div>
                     <div class="buttons">
                         <div class="button">
                             <button class="button1" type="button">Szukaj w Google</button>
@@ -82,18 +88,9 @@
 
             <div class="ilosc_wynikow">
                 Około 15 200 000 wyników (0,44 s) 
-                <br><br>
-                <div class="vue-cities">
-                    <p>Miasta zawierające "{{ googleSearch }}":</p><br>
-                    <ul>
-                        <li v-for="city in filteredCities">					
-                            {{ city.name }}<br>
-                        </li>
-                    </ul>
-                </div>
             </div>
            
-            <div class="zawartosc" style="margin-top:230px;">
+            <div class="zawartosc" >
 
                 <div class="wynik">
                     <div class="naglowek">
@@ -330,34 +327,29 @@
     </body>
     <script>
         var app = new Vue({
-          el: '#app',
-          data: {
-            googleSearch: '',
-            cities: window.cities,
-          },
-          computed: {
-            filteredCities: function () {
-              let wynik = this.cities.filter(city => city.name.includes(this.googleSearch))
-              if (wynik.length > 10) {
-                wynik = wynik.slice(0, 10)
-              }
-              return wynik
-            }
-          },
-          updated() {
-            this.$nextTick(() => {
-      
-              if (this.googleSearch.length > 0) {
-      
-                this.$refs.second.focus();
-      
-              } else {
-      
-                this.$refs.first.focus();
-      
-              }
-            })
-          }
-        });
+                el: "#app",
+                data: {
+                    googleSearch:"",
+                    search:"",
+                    cities: window.cities,
+                },
+                computed: {
+                    filtredCities() {
+                        let result = this.cities.filter(miasto => miasto.name.startsWith(this.googleSearch) || miasto.name.toLowerCase().startsWith(this.googleSearch));
+                        if (this.googleSearch.length > 0) {
+                            return result.slice(0, 10);
+                        }
+                    }
+                },
+                methods: {
+                    potwierdz() {
+                        this.search = this.googleSearch
+                    },
+                    uzupelnij(miasto) {
+                        this.googleSearch = miasto.name;
+                        this.search = this.googleSearch;
+                    },
+                }
+            });
       </script>
 </html>

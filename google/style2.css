@@ -179,7 +179,7 @@
 {
     padding-left: 15px;
     padding-right: 18px;
-    height: 13px;
+    height: 18px;
     padding-bottom: 10px;
     order: 4;
 
@@ -362,14 +362,7 @@ ul li::before {
     content: "\2022";
     color: pink;
   }
-  .results .vue-cities{
-    font-size:100%;
-    padding-bottom: 7px;
-    padding-top: 3px;
-    line-height: 25px;
-    padding-bottom: 80px;
-    line-height: 20px;
-    font-size: 15px;
-    list-style: no
+  .results .lista{
+      display: none;
   }
   
