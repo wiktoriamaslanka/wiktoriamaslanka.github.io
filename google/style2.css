@@ -1,266 +1,446 @@
-.results *
-{
-    all: initial;
+.results .pasek-flex-results,
+.results .additional,
+.results .clear,
+.results .up,
+.results .aplikacje,
+.results .liczba_wynikow,
+.results .lokacja,
+.results .lista,
+.results  img.googleLogo,
+.results #google_link{
+    display:initial;
 }
-.results
-{
-    margin: 0;
-    margin-top: 10px;
-    max-width: 100%;
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    grid-template-rows: 70px 50px 50px 1fr 90px;
-    row-gap: 0;
-}
-.results zaloguj
-{
-    cursor: pointer;
-    margin-left: 8px;
-    color: #fff;
-    background: #1a73e8;
-    border: 1px solid transparent;
-    font-family: Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-    font-weight: 500;
+body .results{
     font-size: 14px;
-    letter-spacing: .25px;
-    line-height: 16px;
-    margin-right: 8px;
-    width: 120px;
-    padding: 9px 23px;
+    min-width: 500px;
+    margin:0;
+    min-height: 100vh;
+    background-color:#fff;
+    font-family: arial, sans-serif;
+    display: grid;
+    align-content: space-between;
+    grid-template-areas:
+    "top"
+    "main"
+    "footer";
+    color: #202124;
+    font-size: 14px;
+    grid-template-rows: auto 1fr auto;
+}
+.results table.googlelist {
+    position: relative;
+    margin: 0 auto;
     text-align: center;
-    vertical-align: middle;
-    border-radius: 4px;
-    box-sizing: border-box;
-}
-.results .up
-{
-    padding-top: 25px;
-    padding-right: 20px;
-}
-.results .up .up_items
-{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding-left: 280px;   
-}
-.results .middle
-{
-    grid-column: 1;
-    grid-row: 1;
-    row-gap: 0;
-    display: flex;
-}
-.results a
-{
-    color: rgba(0,0,0,0.87);
-    text-decoration: none;
-    padding-right: 15px;
-    font: 13px/27px Roboto,RobotoDraft,Arial,sans-serif;
-}
-.results textup
-{
-    display: none;
-}
-.results .textdown
-{
-    display: none;
-}
-.results .aplikacje
-{
-    height:10px;
-    display: flex;
-    align-items: center;
-    flex-direction: row;
-    padding-top: 25px;
-    padding-bottom: 18px;
-    padding-left: 180px;
-    grid-column: 1;
-    grid-row: 2;
-}
-.results .ap
-{
-    color: #5f6368;
-    font-size: 15px;
-    padding-left: 6px;
+    letter-spacing: -0.12em;
+    font-size: 2.3em;
+    margin-bottom: 50px;
+    font-weight: bold;
+    margin-left: 370px;
 }
 
-.results .aplikacje svg
-{
-    height: 17px;
+.results .numer {
+    font-size: 12px;
+    color: rgb(50, 93, 246);
+    letter-spacing: normal;
+    text-align: center;
+    cursor: pointer;
 }
-
-.results .aplikacje svg path 
-{
-    fill: #5f6368;
+.results .arrow {
+    font-size: 14px;
+    font-weight: bold;
+    margin-left: -50px;
+    cursor: pointer;
 }
-
-.results .aplikacje .apki
-{
-    padding-right: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.results .middle .logo
-{
-    height: 40px;
-    display: inline-block;
-    padding: 30px 0px 0 25px;
-}
-.results .middle .logo .google
-{
-    width: 92px;
-    height: 30px;
-    
-}
-.results .middle .search
-{
-    display: inline-block;
-}
-.results .other
-{
+.results .page_nr:hover{
     text-decoration: underline;
 }
-.results .buttons
+.results .blue {
+    color: #518dee;
+}
+.results .red {
+    color: rgb(241, 46, 46);
+}
+.results .green {
+    color: rgb(49, 177, 37);
+}
+
+.results .yellow {
+    color: rgb(247, 200, 59);
+}
+.results .pages .page_nr {
+    font-size: 14px;
+    font-weight: normal;
+}
+.results .help h3 {
+    font-weight: normal;
+    font-size: 19px;
+    margin-top: 12px;
+    margin-bottom: 22px;
+    margin-left: 8px;
+    display: inline-block;
+    margin-left: 180px;    
+}
+.results #helpbar1 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 0px;
+    align-items: center;
+    margin-left: 180px;
+}
+.results #helpbar2 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 0px;
+    align-items: center;
+    margin-left: 180px;
+}
+.results #helpbar3 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 0px;
+    align-items: center;
+    margin-left: 180px;
+}
+.results #helpbar4 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 0px;
+    align-items: center;
+    margin-left: 180px;
+}
+.results #helpbar5 {
+    margin-top: 10px;
+    width: 300px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    border-width: 1px;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 15px;
+    align-items: center;
+}
+
+
+.results .result h2:hover 
 {
+    cursor:pointer;
+	text-decoration: underline;
+}
+
+.results .result a 
+{
+    font-size: 14px;
+	line-height: 14px;
+    color: #202124;
+    margin-bottom: 0px;
+	text-decoration: none;
+}
+
+.results #helpbar6 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 15px;
+    align-items: center;
+}
+.results #helpbar7 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 15px;
+    align-items: center;
+}
+.results #helpbar8 {
+    margin-top: 10px;
+    width: 300px;
+    height: 45px;
+    border-radius: 100px;
+    color: #202124;
+    font-weight: bold;
+    background-color: #f1f3f4;
+    font-size: 16px;
+    position: relative;
+    bottom: 5px;
+    display: flex;
+    margin-left: 15px;
+    align-items: center;
+}
+.results .lupka{
+    width: 25px;
+    margin-right: 22px;
+    margin-left: 22px;
+    font-weight: 500px;
+}
+
+.results .helplists ul {
+    list-style: none;
+    color: #1a0dab;
+    padding-left: 0px;
+    font-size: 14px;
+    margin-bottom: 15px;
+    margin-left: 3px;
+    cursor: pointer;
+}
+.results .helplists {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 300px;
+    margin-left: 3px;
+}
+.results .results .helplists ul li {
+    margin-bottom: 8px;
+    margin-left: 3px;
+}
+.results .result {
+    margin: 0px 0 0px 5px;
+}
+.results .searchnumber {
+    margin-top: 15px;
+    color: rgb(110, 110, 110);
+    margin-left: 10px;
+}
+.results .result p {
+    margin: 5px 0 25px 0;
+    color: #545454;
+    line-height: 1.5em;
+    font-size: 14px;
+}
+.results .result h2 {
+    margin: 0px 0 0px 0;
+    color: #1a0dab;
+    line-height: 1.5em;
+    font-size: 20px;
+    font-weight: 120;
+}
+.results .result .link {
+    margin: 0px -10px 0px 0;
+    color: #545454;
+    line-height: 1em;
+    font-size: 13px;
+}
+.results .result button {
+    font-size: 10px;
+    line-height: 20px;
+    color: rgb(71, 71, 71);
+    padding-left: 5px;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+}
+.results  img.googleLogo{
+    margin-top: 0px;
+    display: initial;
+    height: 28px;
+    width: 86px;
+    cursor: pointer;
+}
+.results #google_link{
+    position: absolute;
+    left: 0px;
+    padding: 4px 28px 0 30px;
+    top: -100px;
+    height: 28px;
+    width: 86px;
+    cursor: pointer;
+}
+.results .h-flex_container{
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: baseline;
+    justify-content: space-between;
+    margin-top: 6px;
+}
+.results .aplikacja{
+    align-items: center;
+}
+.results img.clear{
+    width: 14px;
+    height: 14px;
+    margin-right: 14px;
+    padding-left:10px;
+    align-self:center;
+}
+.results span.kreska{
+    border-right: 1px solid #dfe1e5;
+    display: inline-block;
+    height: 34px;
+}
+.results .szukaj{
+    padding: 0px;
+    width:100%;
+    height:44px;
+    display: flex;
+    line-height:normal;
+}
+.results .wyszukiwanie{
+    align-self:center;
+    margin-left: 13px;
+    margin-top: 10px;
+}
+.results .wyszukiwanie:focus{
+    margin-left: 20px;
+    height:14px;
+    font-size: 17px;
+}
+.results .iks{
+    display:flex;
+    align-self:center;
+    cursor:pointer;
+    margin:0px;
+}
+.results .keyboard{
+    align-self:center;
+    padding-right: 10px;
+    padding-left: 15px;
+    margin-top: 5px;
+}
+.results .mikrofon{
+    align-self:center;
+    padding-right: 6px;
+    padding-left: 6px;
+    margin-top: 3px;
+}
+.results .lupa{
+    align-self:center;
+    margin-top: 3px;
+}
+.lista_miasta{
     display: none;
+    line-height: 0.8rem;
+    border-top: 1px solid #dfe1e5;
+    background-color: #fff;
+    z-index:10;
+    margin-bottom:2px;
+    border-bottom-left-radius: 25%;
+    border-bottom-right-radius: 25%;
 }
-
-.results .search
-{
-    padding: 20px 60px 0px 60px;
+.lista_miasta li{
+    padding:2px 0px;
+    cursor: pointer;
 }
-
-.results .write
-{
-    width: 690px;
-    background: #fff;
+.results #przycisk_szukaj{
     display: flex;
-    border: 1px solid #dfe1e5;
-    box-shadow: none;
-    border-radius: 24px;
-    z-index: 3;
-    height: 39px;
-    margin: 0 auto;
-    padding-top: 6px;
-}
-.results .szukaj
-{
-    flex: 1;
-    display: flex;
-    padding: 5px 8px 0 16px;
-    padding-left: 14px;
+    padding-right: 20px;
+    height: 44px;
+    width: 44px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
     justify-content: center;
 }
-.results .lupa
-{
-    display: none;
+.lista_elementow{
+    padding: 3px 0px;
+    cursor: pointer;
 }
-.results .lupa2 
-{
-    margin: auto;
-    height: 24px;
-    padding-bottom: 10px;
-    padding-right: 9px;
-    order: 5;
+.results .aplikacje{
+    margin-left: 169px;
 }
-.results .lupa2 path
-{
-    fill: #4285f4;
+.results .up{
+    position: sticky;
+    top:0;
+    margin-bottom:22px;
+    margin-top:10px;
+    margin-left: 133px;
+    width: 692px;
+    height:44px;
+    margin-right: 40px;
+    padding-top:0px;
+    padding-bottom:0px;
 }
-.results .kreska
-{
-    order: 3;
-    border-left: 1px solid #dfe1e5;
-    height: 77%;
-}
-.results img.klawiatura
-{
-    padding-left: 15px;
-    padding-right: 18px;
-    height: 18px;
-    padding-bottom: 10px;
-    order: 4;
-
-}
-.results .iks
-{
-    padding-right: 10px;
-    height: 24px;
-    width: auto;
-    order: 2;
-}
-
-.results .iks path
-{
-    display: inline-block;
-    fill: #5f6368;
-}
-
-.results input
-{
-    background-color: transparent;
-    border: none;
-    padding: 0 0 25px 0;
-    color: rgba(0,0,0,.87);
-    word-wrap: break-word;
-    outline: none;
-    display: flex;
-    flex: 100%;
-    height: 25px;
-    font-size: 16px;
+.results .apki{
+    display: initial;
+    text-decoration: none;
+    color: #70757a;
+    cursor: pointer;
+    font-size: 13px;
     font-family: arial,sans-serif;
-    font-weight: 400;
-    text-align: start;
-    max-width: 590px;
-    order: 1;
-}
-.results .write:hover,
-.results .write:focus {
-    box-shadow: 0 0 0.3em 0.1em #d9d9d9;
-}
-.results .dots
-{
-    height: 24px;
-    max-height: 23px;
-    margin: auto;
-}
-.results zaloguj
-{
-    margin-left: 8px;
-    color: #fff;
-    background: #1a73e8;
-    border: 1px solid transparent;
-    font-family: Google Sans,Roboto,RobotoDraft,Helvetica,Arial,sans-serif;
-    font-weight: 500;
-    font-size: 14px;
-    letter-spacing: .25px;
+    white-space: nowrap;
+    height: 16px;
     line-height: 16px;
-    margin-right: 8px;
-    width: 120px;
-    padding: 9px 23px;
-    text-align: center;
-    vertical-align: middle;
-    border-radius: 4px;
-    box-sizing: border-box;
+    margin: 11px 1px 0;
+    padding: 16px 12px 12px 10px;
 }
-.results .kreska_pozioma
-{
-    border-bottom: 1px solid #dfe1e5;
-    grid-row: 2;
-    grid-column: 1 / 3;
+.results .apki.wszystko{
+        border-bottom: 3px solid #1a73e8;
+        color: #1a73e8;
 }
-
-.results .ilosc_wynikow
-{
-    padding-left: 180px;
-    padding-top: 16px;
-    grid-column: 1;
-    grid-row: 3;
-    color: #5f6368;
-    font-family: arial,sans-serif;
+.results header{
+    border-bottom: 1px solid #ebebeb;
+    padding-bottom:15px;
+    min-width: 1261px;
+    z-index: 1;
+}
+.results .liczba_wynikow{
     font-size: 14px;
+    color: #70757a;
+    line-height: 25px;
+    white-space: nowrap;
+    font-family: Google Sans,arial,sans-serif;
+    padding-top: 0;
+    padding-bottom: 0;
+    padding-right: 8px;
+    min-width: 652px;
+    margin-left: 180px;
+    align-self: flex-start;
 }
 
 .results .zawartosc
@@ -313,56 +493,153 @@
     font-size: 14px;
     font-family: Arial, sans-serif;
 }
-.results .down
-{
-    
-    grid-column: 1 / 3;
-    grid-row: 5;
-    margin-top: 10px;
-    padding-left: 175px;
-    display: flex;
-    flex-direction: column;
-    background: #f2f2f2;
-    border-top: 1px solid #dfe1e5;
-   
-}
-.results .polska
-{
-    padding: 10px 0 10px 0;
-    border-bottom: 1px solid #dadce0;
-    font-size: 15px;
-    color: rgba(0,0,0,.54);
-    font-family: Arial, sans-serif;
-}
-.results .links2
-{
-    padding: 10px 0 20px 0;
-    display: flex;
-    font-size: 15px;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.results .links2 .links2el
-{
-    font-size: 15px;
-    color: rgba(0,0,0,.54);
-    padding-right: 20px;
-}
 .results .zawartosc a:hover
 {
     text-decoration: underline;
 }
-.results kropki
-{
-    padding-right: 15px;
-    padding-top: 6px;
+.results .lista{
+    clear: both;
+    position: relative;
+    margin-right: 264px;
+    margin-left: 180px;
+    width: 652px;
 }
-ul li::before {
-    content: "\2022";
-    color: pink;
-  }
-  .results .lista{
-      display: none;
-  }
-  
+/*.results .wyszukiwanie{
+    margin-left: 180px;
+    max-width: 48em;
+}*/
+.results footer{
+    position: relative;
+    width:100%;
+    min-width: 1261px;
+    margin: 0px;
+}
+.results div.bottom{
+    border-bottom: 1px solid #dadce0;
+    border-top: 1px solid #dadce0;
+}
+.results .kropka{
+    background: #70757a;
+    border-radius: 100%;
+    display: inline-block;
+    height: 10px;
+    margin: 6px 4px 9px 0;
+    vertical-align: middle;
+    width: 10px;
+}
+.results .lokacja{
+    margin-left: 13px;
+    padding-left: 16px;
+    border-left: 1px solid #dadce0;
+    line-height: 15px;
+    color: #70757a;
+    font-size: 14px;
+}
+.results .textdown{
+    white-space: nowrap;
+    padding:0px;
+    line-height: 40px;
+}
+.results .lokacja a{
+    text-decoration: none;
+    color: #70757a;
+}
+.results .lokacja b{
+    color: #3c4043;
+}
+.results .panstwo{
+    margin-left: 195px;
+}
+.results .druga{
+    padding:0;
+    line-height: 40px;
+    margin-left: 153px;
+    padding-left:0px;
+    white-space: nowrap;
+    font-size: 14px;
+    justify-content: flex-start;
+}
+.results .link{
+    padding-left: 27px;
+}
+.results .glowne{
+    display: none;
+}
+.results .pierwsza{
+    display: none;
+}
+.results .leafy{
+    display: none;
+}
+.results .menu{
+    display: none;
+}
+.results .przyciski{
+    display: none;
+}
+.results header .linki{
+    display:none;
+}
+.results #listaMiast{
+    display: none;
+}
+.results .widok {
+    display: block;
+}
+
+.results .infopasek {
+    position: absolute;
+    background: #f2f2f2;
+    width: 100%;
+    padding: 10px;
+    border-top: 1px solid rgb(209, 209, 209);
+    font-size: 14px;
+}
+
+.results .infopasek p a.panstwo {
+    margin-right: 24px;
+}
+
+.results .infopasek p a.inne {
+    cursor: pointer;
+}
+
+.results .infopasek p a.inne:hover {
+    color:rgb(73, 73, 73);
+}
+
+
+.results .infopasek p, .infopasek ul {
+    margin-left: 162px;
+}
+
+.results .infopasek p a strong {
+    color: black;
+}
+
+.results .infopasek p {
+    padding-bottom: 10px;
+    padding-top: 5px;
+}
+
+.results .infopasek ul {
+    padding-top: 10px;
+    padding-bottom: 5px;
+}
+
+.results .infopasek p a {
+    color: rgb(114, 114, 114);
+}
+
+.results .locationpasek {
+    border-bottom: 1px solid rgb(190, 190, 190);
+}
+
+.results .infopasek li a {
+    margin-right: 20px;
+    color: rgb(114, 114, 114);
+}
+
+.results .infopasek li a:hover {
+    color:rgb(73, 73, 73);
+}

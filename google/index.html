@@ -1,355 +1,439 @@
 <!DOCTYPE html>
-<html lang="pl">
-    <head>
-        <meta charset="utf-8">
+<html>
+    <head lang="pl">
+        <meta charset="UTF-8">
         <title>Google</title>
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="style2.css">
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
-        <script src="./cities.js"></script>
-       
+		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <link rel="icon" href="icon.png">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <link rel="stylesheet" type="text/css" href="style_results.css">
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
+		<script src="cities.js" ></script>
+		<script src="https://kit.fontawesome.com/ffc589d0fc.js" crossorigin="anonymous"></script>
     </head>
-    <body>
-        <div id="app" :class="[search.length > 0 ? 'results' : 'main']"> 
-            <div class="up">
-                <div class="up_items">
-                    <textup>Gmail</textup>
-                    <textup >Grafika</textup>
-                    <kropki><img class="dots"src="kropki.png"></kropki>
-                    <zaloguj> Zaloguj się</zaloguj>
-                </div>
-            </div>
-            <div class="middle">
-                <div class="logo">
-                    <img class="google" src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google" height="92" width="272">
-                </div>
-                <div class="search">
-                    <div class="write">
+
+	<body class="home">
+        <div id="start" :class="{results : aktywne()}">
+    
+            <header>
+    
+                <div class="h-flex_container">
+    
+                    <section class="h-flex_element linki">
+                        <a  class="aplikacje">Gmail</a>
+                        <a  class="aplikacje">Grafika</a>
+                    </section>
+                    <div class=" up">
+                    <section class="m-flex_element pasek-flex">
                         <div class="szukaj">
-                            <img class="lupa" src="lupa.png">
-                            <input v-model="googleSearch" type="text" maxlength="2048" title="Szukaj" v-on:click="ustaw()">
-                            <svg class="iks" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path></svg>
-                            <span class="kreska"></span>
-                            <img class="klawiatura" src="klawiatura.png">
-                            <svg class="lupa2" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"></path></svg>
+                            <input class="wyszukiwanie" ref="top" v-model="googleSearch" maxlength="2048" @focus="skupienie = true" @keyup.down="dol()" @keyup.up="gora()" @keyup.enter="enter()"/>                       
+                                <div class="iks">
+                                <img title="Wyczyść" class="clear" src="iks.svg"/>
+                                <span class="kreska"></span>
+                                </div>
+                            <img class="keyboard" src="keyboard.svg"/>
+                            <img class="mikrofon" src="voice.png"/>
+                            <button id="przycisk_szukaj"><img class="lupa" src="lupa_2.svg"/></button>
                         </div>
-                    <div class="lista">
-                            <ul v-for="miasto in filtredCities" @click="uzupelnij(miasto)">
-                                <img class="lupa1" src="lupa.png" title="Szukaj">
-                                {{googleSearch}}<b>{{ miasto.name.substring(googleSearch.length) }}</b>
+                        <div  id="wypisz_miasta" class="lista_miasta" :class="{widok : googleSearch.length > 0 /*&& skupienie*/ && filtrowaneMiasta.length>0}" >
+                            <ul >
+                                <li  v-for="(miasto,index) in filtrowaneMiasta" >
+                                    <div class="lista_elementow" :class="{klasa_skupienie:index == zaznaczenie}">
+                                        <img class="lupa" src="lupa.svg" />
+                                        <a href="#" v-html="wytluszcz(miasto)" v-on:click="wybrane(index)"><b>{{ miasto }}</b></a>  
+                                    </div>
+                                </li>
                             </ul>
-                        </div>
+                        </div> 
+                    </section>
                 </div>
-                    <div class="buttons">
-                        <div class="button">
-                            <button class="button1" type="button">Szukaj w Google</button>
-                            <button class="button2" type="button">Szczęśliwy traf</button>
-                        </div>
-                    </div>
+    
+                    <section class="h-flex_element aplikacja">
+                        <a class="aplikacja" style="cursor:pointer;"><img class="aplikacja" src="menu.svg" /></a>
+                        <a class="pczycisk_login" style="cursor:pointer;">Zaloguj się</a>
+                    </section>
                 </div>
-            </div>
-   
-        <div class="aplikacje">
-            <div class="apki">
-                <svg class="ikonka" xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path fill='rgba(0,0,0,.54)' d='M20.49 19l-5.73-5.73C15.53 12.2 16 10.91 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.41 0 2.7-.47 3.77-1.24L19 20.49 20.49 19zM5 9.5C5 7.01 7.01 5 9.5 5S14 7.01 14 9.5 11.99 14 9.5 14 5 11.99 5 9.5z'/></svg>
-                <a class="ap" >Wszystko</a>
-            </div>
-            <div class="apki">
-                <svg focusable="false" width='24' height='24' viewBox="0 0 24 24"><path d="M12 11h6v2h-6v-2zm-6 6h12v-2H6v2zm0-4h4V7H6v6zm16-7.22v12.44c0 1.54-1.34 2.78-3 2.78H5c-1.64 0-3-1.25-3-2.78V5.78C2 4.26 3.36 3 5 3h14c1.64 0 3 1.25 3 2.78zM19.99 12V5.78c0-.42-.46-.78-1-.78H5c-.54 0-1 .36-1 .78v12.44c0 .42.46.78 1 .78h14c.54 0 1-.36 1-.78V12zM12 9h6V7h-6v2"></path></svg>
-                <a class="ap" >Wiadomości</a>
-            </div>
-            <div class="apki">
-                <svg focusable="false" width='24' height='24' viewBox="0 0 24 24"><path d="M14 13l4 5H6l4-4 1.79 1.78L14 13zm-6.01-2.99A2 2 0 0 0 8 6a2 2 0 0 0-.01 4.01zM22 5v14a3 3 0 0 1-3 2.99H5c-1.64 0-3-1.36-3-3V5c0-1.64 1.36-3 3-3h14c1.65 0 3 1.36 3 3zm-2.01 0a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1h7v-.01h7a1 1 0 0 0 1-1V5"></path></svg>
-                <a class="ap" >Grafika</a>
-            </div>
-            <div class="apki">
-                <svg focusable="false" width='24' height='24' viewBox="0 0 16 16"><path d="M7.503 0c3.09 0 5.502 2.487 5.502 5.427 0 2.337-1.13 3.694-2.26 5.05-.454.528-.906 1.13-1.358 1.734-.452.603-.754 1.508-.98 1.96-.226.452-.377.829-.904.829-.528 0-.678-.377-.905-.83-.226-.451-.527-1.356-.98-1.959-.452-.603-.904-1.206-1.356-1.734C3.132 9.121 2 7.764 2 5.427 2 2.487 4.412 0 7.503 0zm0 1.364c-2.283 0-4.14 1.822-4.14 4.063 0 1.843.86 2.873 1.946 4.177.468.547.942 1.178 1.4 1.79.34.452.596.99.794 1.444.198-.455.453-.992.793-1.445.459-.61.931-1.242 1.413-1.803 1.074-1.29 1.933-2.32 1.933-4.163 0-2.24-1.858-4.063-4.139-4.063zm0 2.734a1.33 1.33 0 11-.001 2.658 1.33 1.33 0 010-2.658"></path></svg>
-                <a class="ap" >Mapy</a>
-            </div>
-            <div class="apki">
-                <svg focusable="false" width='24' height='24' viewBox="0 0 24 24"><path d="M10 16.5l6-4.5-6-4.5v9zM5 20h14a1 1 0 0 0 1-1V5a1 1 0 0 0-1-1H5a1 1 0 0 0-1 1v14a1 1 0 0 0 1 1zm14.5 2H5a3 3 0 0 1-3-3V4.4A2.4 2.4 0 0 1 4.4 2h15.2A2.4 2.4 0 0 1 22 4.4v15.1a2.5 2.5 0 0 1-2.5 2.5"></path></svg>
-                <a class="ap" >Wideo</a>
-            </div>
-            <div class="apki">
-                <svg focusable="false" width='24' height='24' xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"></path></svg>
-                <a class="ap">Więcej</a>
-            </div>
-            <div class="apki">
-                <img src=""/>
-                <a class="ap" >Ustawienia</a>
-            </div>
-            <div class="apki">
-                <img src=""/>
-                <a class="ap" >Narzędzia</a>
-            </div>
-        </div>
-
-            <span class="kreska_pozioma"></span>
-
-            <div class="ilosc_wynikow">
-                Około 15 200 000 wyników (0,44 s) 
-            </div>
-           
-            <div class="zawartosc" >
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">     
-                                <cite class="skrot">
-                                    https://support.google.com
-                                    <span class="rodzaj"> › websearch ›answer </span>
-                                </cite>
+    
+                <div class="aplikacje">
+                    <section class="wszystko">Wszystko</section>
+                    <section class="apki">Grafika</section>
+                    <section class="apki">Mapy</section>
+                    <section class="apki">Wiadomości</section>
+                    <section class="apki">Wideo</section>
+                    <section class="apki">Więcej</section>
+                    <section class="apki">Ustawienia</section>
+                    <section class="apki">Narzędzia</section>
+    
+                </div>
+            </header>
+    
+            <main>
+    
+                <div class="m-flex_container">
+                    
+                    <div class="liczba_wynikow">Około 15 200 000 wyników (0,44 s) </div>
+                    <section class="m-flex_element"><a id="google_link">
+                        <img  class="googleLogo" src="logo.png" /></a></section>
+                    <form class="szukanie">
+                        <section class="m-flex_element pasek-flex glowne" >
+                            <div class="szukaj">
+                                <img class="lupa" src="lupa.svg" />
+                                <input class="wyszukiwanie" maxlength="2048" v-model="googleSearch" @focus="skupienie = true" @keyup.enter="enter()" @keyup.down="dol()" @keyup.up="gora()"/>
+                                <img class="clear" src="Obrazki/clear.svg"/>
+                                <img class="keyboard" src="keyboard.svg"/>
+                                <img class="mikrofon" src="voice.png"/>
                             </div>
-                            <a class="tytul" href="https://support.google.com/websearch/answer/1710607?co=GENIE.Platform%3DAndroid&hl=plE">Sprawdzanie wyników wyszukiwania podróży przez Gmaila ...</a>
-                        </div>
-                    </div>
-                    <div class="streszczenie">
-                        <span class="opis">
-                            Zobacz wyniki z innego konta Google. Uwaga: aby wykonać te czynności, musisz zalogować się na konto Google. Na telefonie lub tablecie z Androidem otwórz ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://support.google.com
-                                    <span class="rodzaj"> › websearch ›answer</span>
-                                </cite>
+                            <div  id="listaMiast" class="nazwy_miast" :class="{widok : googleSearch.length > 0 /*&& skupienie*/ && filtrowaneMiasta.length>0}" >
+                                <ul >
+                                    <li  v-for="(miasto,index) in filtrowaneMiasta" >
+                                        <div class="lista_elementow" :class="{klasa_skupienie:index == zaznaczenie}">
+                                            <img class="lupa" src="lupa.svg" />
+                                            <a href="#" v-html="wytluszcz(miasto)" v-on:click="wybrane(index)"><b>{{ miasto }}</b></a>
+                                        </div>
+                                    </li>
+                                </ul>
                             </div>
-                            <a class="tytul" href="https://support.google.com/websearch/answer/9603785?hl=pl">Znajdowanie większej liczby wyników wyszukiwania w Google</a>
-                        </div>
-                    </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            Podczas wyszukiwania w Google możesz znaleźć tysiące, a nawet miliony pasujących stron internetowych. Najtrafniejsze wyniki są wyświetlane jako pierwsze.
-                        </span>
+                        </section>
+                        
+    
+                    </form>
+                    <div class="m-flex_element przyciski" :class="{ukryte : googleSearch.length > 0 && skupienie && filtrowaneMiasta.length>0}">
+                        <input class="przycisk jeden" type="submit" value="Szukaj w Google" />
+                        <input class="przycisk" type="submit" value="Szczęśliwy traf" />
                     </div>
                 </div>
+                <div class="zawartosc" >
 
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    www.pozycjonusz.pl
-                                    <span class="rodzaj"> › rodzaje-wynikow-wyszuk...</span>
-                                </cite>
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">     
+                                    <cite class="skrot">
+                                        https://support.google.com
+                                        <span class="rodzaj"> › websearch ›answer </span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://support.google.com/websearch/answer/1710607?co=GENIE.Platform%3DAndroid&hl=plE">Sprawdzanie wyników wyszukiwania podróży przez Gmaila ...</a>
                             </div>
-                            <a class="tytul" href="https://www.pozycjonusz.pl/rodzaje-wynikow-wyszukiwania-google/">Rodzaje wyników wyszukiwania Google - ponad 20 ...</a>
+                        </div>
+                        <div class="streszczenie">
+                            <span class="opis">
+                                Zobacz wyniki z innego konta Google. Uwaga: aby wykonać te czynności, musisz zalogować się na konto Google. Na telefonie lub tablecie z Androidem otwórz ...
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            7) Wewnętrzna wyszukiwarka. Rodzaje wyników wyszukiwania Google wzbogacono jakiś czas temu o funkcję wewnętrznej wyszukiwarki. To rozwiązanie, bez ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://widoczni.com
-                                    <span class="rodzaj"> › rodzaje-wynikow-wyszuk...</span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://support.google.com
+                                        <span class="rodzaj"> › websearch ›answer</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://support.google.com/websearch/answer/9603785?hl=pl">Znajdowanie większej liczby wyników wyszukiwania w Google</a>
                             </div>
-                            <a class="tytul" href="https://widoczni.com/blog/jak-wyszukiwac-w-google/">14 sposobów wyszukiwania w Google, których 95% z Was nie ...</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                Podczas wyszukiwania w Google możesz znaleźć tysiące, a nawet miliony pasujących stron internetowych. Najtrafniejsze wyniki są wyświetlane jako pierwsze.
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            Szukanie frazy – zastosowanie cudzysłowu. Wyniki wyszukiwania w Google konkretnych fraz mogą być bardziej trafne, gdy zastosujemy cudzysłów. Algorytmy ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://www.empressia.pl
-                                    <span class="rodzaj"> › blog ›115-rozne-wyniki-w...</span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        www.pozycjonusz.pl
+                                        <span class="rodzaj"> › rodzaje-wynikow-wyszuk...</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://www.pozycjonusz.pl/rodzaje-wynikow-wyszukiwania-google/">Rodzaje wyników wyszukiwania Google - ponad 20 ...</a>
                             </div>
-                            <a class="tytul" href="https://www.empressia.pl/blog/115-rozne-wyniki-wyszukiwania-google">Wyniki wyszukiwań Google – skąd takie rozbieżności?</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                7) Wewnętrzna wyszukiwarka. Rodzaje wyników wyszukiwania Google wzbogacono jakiś czas temu o funkcję wewnętrznej wyszukiwarki. To rozwiązanie, bez ...
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            21 lut 2019 — Otóż inaczej będą prezentować się wyniki wyszukiwania po wpisaniu tej samej frazy przez ... Google przechwytuje adres IP i za jego pomocą generuje wyniki, np. po wpisaniu frazy ... Jaki jest koszt pozycjonowania sklepu?
-                        </span>
-                    </div>
-
-                </div>
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://wiwi.pl
-                                    <span class="rodzaj"> › Blog </span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://widoczni.com
+                                        <span class="rodzaj"> › rodzaje-wynikow-wyszuk...</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://widoczni.com/blog/jak-wyszukiwac-w-google/">14 sposobów wyszukiwania w Google, których 95% z Was nie ...</a>
                             </div>
-                            <a class="tytul" href="https://wiwi.pl/wyniki-wyszukiwania-google-przyklady/">Wyniki wyszukiwania Google: 10 przykładów - Agencja ...</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                Szukanie frazy – zastosowanie cudzysłowu. Wyniki wyszukiwania w Google konkretnych fraz mogą być bardziej trafne, gdy zastosujemy cudzysłów. Algorytmy ...
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            10 wrz 2020 — A jest tego dużo, dużo więcej. Poznaj przykłady, w jaki sposób Google pomaga użytkownikom Internetu odnaleźć potrzebne wiadomości. Spis ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://www.telepolis.pl
-                                    <span class="rodzaj"> › wiadomosci › aplikacje ›wys...</span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://www.empressia.pl
+                                        <span class="rodzaj"> › blog ›115-rozne-wyniki-w...</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://www.empressia.pl/blog/115-rozne-wyniki-wyszukiwania-google">Wyniki wyszukiwań Google – skąd takie rozbieżności?</a>
                             </div>
-                            <a class="tytul" href="https://www.telepolis.pl/wiadomosci/aplikacje/wyszukiwarka-google-search-wyniki-wyszukiwania-android">Wyszukiwarka Google powie więcej o wynikach wyszukiwania ...</a>
                         </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                21 lut 2019 — Otóż inaczej będą prezentować się wyniki wyszukiwania po wpisaniu tej samej frazy przez ... Google przechwytuje adres IP i za jego pomocą generuje wyniki, np. po wpisaniu frazy ... Jaki jest koszt pozycjonowania sklepu?
+                            </span>
+                        </div>
+    
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            2 lut 2021 — Szczegóły wyników wyszukiwania w Google. W polu z informacjami o ... co masz do Wikipedii? Jeśli widzisz jakiś błąd, to możesz go poprawić.
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://spidersweb.pl
-                                    <span class="rodzaj"> › 2020/01 › google-wyniki-wyszu...</span>
-                                </cite>
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://wiwi.pl
+                                        <span class="rodzaj"> › Blog </span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://wiwi.pl/wyniki-wyszukiwania-google-przyklady/">Wyniki wyszukiwania Google: 10 przykładów - Agencja ...</a>
                             </div>
-                            <a class="tytul" href="https://spidersweb.pl/2020/01/google-wyniki-wyszukiwania-reklamy.html">Krytycy ganią Google'a za nowy wygląd wyników wyszukiwania</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                10 wrz 2020 — A jest tego dużo, dużo więcej. Poznaj przykłady, w jaki sposób Google pomaga użytkownikom Internetu odnaleźć potrzebne wiadomości. Spis ...
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            24 sty 2020 — Google co jakiś czas eksperymentuje z tym, jak wyglądają jego wyniki wyszukiwania i w jaki sposób odróżniają się od nich reklamy. Trudno ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://ks.pl
-                                    <span class="rodzaj"> › jak-sprawdzic-pozycje-w-stronie-google</span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://www.telepolis.pl
+                                        <span class="rodzaj"> › wiadomosci › aplikacje ›wys...</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://www.telepolis.pl/wiadomosci/aplikacje/wyszukiwarka-google-search-wyniki-wyszukiwania-android">Wyszukiwarka Google powie więcej o wynikach wyszukiwania ...</a>
                             </div>
-                            <a class="tytul" href="https://ks.pl/blog/jak-sprawdzic-pozycje-strony-w-google">Pozycja w Google – jak sprawdzić, na której pozycji jest moja ...</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                2 lut 2021 — Szczegóły wyników wyszukiwania w Google. W polu z informacjami o ... co masz do Wikipedii? Jeśli widzisz jakiś błąd, to możesz go poprawić.
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            Tak naprawdę nie są znane wszystkie kryteria, jakimi kieruje się algorytm, nadając stronom pozycje w wynikach wyszukiwania. W dodatku algorytm jest co jakiś ...
-                        </span>
-                    </div>
-                </div>
-
-                <div class="wynik">
-                    <div class="naglowek">
-                        <div class="hiperlacze">
-                            <div class="adres">
-                                <cite class="skrot">
-                                    https://www.google.com
-                                    <span class="rodzaj"> › howserchworks › algorithms</span>
-                                </cite>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://spidersweb.pl
+                                        <span class="rodzaj"> › 2020/01 › google-wyniki-wyszu...</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://spidersweb.pl/2020/01/google-wyniki-wyszukiwania-reklamy.html">Krytycy ganią Google'a za nowy wygląd wyników wyszukiwania</a>
                             </div>
-                            <a class="tytul" href="https://www.google.com/intl/pl/search/howsearchworks/algorithms/">Jak działa wyszukiwarka Google | Algorytmy wyszukiwania</a>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                24 sty 2020 — Google co jakiś czas eksperymentuje z tym, jak wyglądają jego wyniki wyszukiwania i w jaki sposób odróżniają się od nich reklamy. Trudno ...
+                            </span>
                         </div>
                     </div>
-
-                    <div class="streszczenie">
-                        <span class="opis">
-                            Dowiedz się, w jaki sposób algorytmy wyszukiwania Google znajdują najbardziej trafne wyniki za pomocą metod takich jak analiza słów w wyszukiwanym haśle ...
-                        </span>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://ks.pl
+                                        <span class="rodzaj"> › jak-sprawdzic-pozycje-w-stronie-google</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://ks.pl/blog/jak-sprawdzic-pozycje-strony-w-google">Pozycja w Google – jak sprawdzić, na której pozycji jest moja ...</a>
+                            </div>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                Tak naprawdę nie są znane wszystkie kryteria, jakimi kieruje się algorytm, nadając stronom pozycje w wynikach wyszukiwania. W dodatku algorytm jest co jakiś ...
+                            </span>
+                        </div>
+                    </div>
+    
+                    <div class="wynik">
+                        <div class="naglowek">
+                            <div class="hiperlacze">
+                                <div class="adres">
+                                    <cite class="skrot">
+                                        https://www.google.com
+                                        <span class="rodzaj"> › howserchworks › algorithms</span>
+                                    </cite>
+                                </div>
+                                <a class="tytul" href="https://www.google.com/intl/pl/search/howsearchworks/algorithms/">Jak działa wyszukiwarka Google | Algorytmy wyszukiwania</a>
+                            </div>
+                        </div>
+    
+                        <div class="streszczenie">
+                            <span class="opis">
+                                Dowiedz się, w jaki sposób algorytmy wyszukiwania Google znajdują najbardziej trafne wyniki za pomocą metod takich jak analiza słów w wyszukiwanym haśle ...
+                            </span>
+                        </div>
                     </div>
                 </div>
-            </div>
 
-
-            <div class="down">
-                <div class="polska">Polska</div>
+            </main>
+    
+            <footer class="down">
                 <div class="textdown">
-                    <div class="textdown1">
-                        <textdown1>O nas</textdown1>
-                        <textdown1>Reklamuj się</textdown1>
-                        <textdown1>Dla firm</textdown1>
-                        <textdown1>Jak działa wyszukiwarka</textdown1>
-                    </div>                    
-                    <div class="neutralnosc">
-                        <div class="neutral">                     
-                            <img class = "listek" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAYCAMAAAAiV0Z6AAAAPFBMVEVLoEN0wU6CzFKCzFKCzFKCzFKCzFJSo0MSczNDmkCCzFJPoUMTczNdr0gmgziCzFITczMTczMTczMTczPh00jOAAAAFHRSTlPF/+bIsms8Ad///hX+//5/tXw7aMEAx10AAACaSURBVHgBbc4HDoRQCATQ33tbvf9dF9QxaCT9UQaltLHOh/golXKhMs5Xqa0xU1lyoa2fXFyQOsDG38qsLy4TaV+sFislovyhPzLJJrBu6eQOtpW0LjbJkzTuTDLRVNKa3uxJI+VdiRqXSeu6GW+Qxi29eLIi8H7EsYrT42BD+mQtNO5JMjRuC4lSY8V4hsLX0egGijvUSEP9AbylEsOkeCgWAAAAAElFTkSuQmCC">
-                            <a class="textneutral" color=blue;>Neutralność węglowa od 2007 roku</a>
-                        </div>
-                    </div>   
-                    <div class="textdown2">
-                        <textdown1>Prywatność</textdown1>
-                        <textdown1>Warunki</textdown1>
-                        <textdown1>Ustawienia</textdown1>
-                    </div>
+                    <div class="panstwo">Polska<span class="lokacja"><span class="kropka"></span><b> 34-200, Kraków</b> - Z Twojego adresu internetowego - <a href="#">Użyj dokładnej lokalizacji</a> - <a href="#">Dowiedz się więcej</a></span></div>
                 </div>
-                    <div class="links2">
-                        <div class="elementy_dolne">
-                            <a class="links2el" >Pomoc</a>
-                            <a class="links2el" >Prześlij opinię</a>
-                            <a class="links2el" >Prywatność</a>
-                            <a class="links2el" >Warunki</a>
+    
+                <div class="footer_container">
+                    <section class="f_flex_element 1">
+                        <a class="sekcja-item link odstep">O nas</a>
+                        <a class="sekcja-item link odstep">Reklamuj się</a>
+                        <a class="sekcja-item link odstep">Dla firm</a>
+                        <a class="sekcja-item link odstep">Jak działa wyszukiwarka</a> 
+                        <img  style="width:12px;height:15px;margin-top:13px;margin-left:30px;" src="lisc_footer.png"/>                       
+                        <a class="sekcja-item link odstep" style="margin-left:-5px;">Neutralność węglowa od 2007 roku</a>
+
+                        
+                    </section>
+                    <section class="f_flex_element 2">
+                        <a class="sekcja-item link">Pomoc</a>
+                        <a class="sekcja-item link">Prywatność</a>
+                        <a class="sekcja-item link">Warunki</a>
                         </div>
-                    </div>
-            </div>     
-        </div> 
+                    </section>
+                </div>
+            </footer>
+        </div>
     </body>
+    
     <script>
-        var app = new Vue({
-                el: "#app",
-                data: {
-                    googleSearch:"",
-                    search:"",
-                    cities: window.cities,
+        var app = new Vue(
+            {
+            el: '#start',
+            data: {
+                googleSearch: '',
+                searchedInput:'',
+                filtrowaneMiasta:"",
+                cities: window.cities,
+                filtrowane_miasta_aktualizacja:true,
+                skupienie: false,
+                zmiana: false,
+                zaznaczenie: -1,
+            },
+            watch: 
+            {
+                zaznaczenie: function () 
+                {
+                this.filtrowane_miasta_aktualizacja=false;
+                this.googleSearch=this.filtrowaneMiasta[this.zaznaczenie].name;
                 },
-                computed: {
-                    filtredCities() {
-                        let result = this.cities.filter(miasto => miasto.name.startsWith(this.googleSearch) || miasto.name.toLowerCase().startsWith(this.googleSearch));
-                        if (this.googleSearch.length > 0) {
-                            return result.slice(0, 10);
-                        }
+                googleSearch: function()
+                {
+                    this.filtrowane_miasta_utworz(this.filtrowane_miasta_aktualizacja);
+                    this.filtrowane_miasta_aktualizacja=true;
+                    console.log(this.filtrowaneMiasta);
+                    if(this.zaznaczenie==-1)
+                    {
+                        this.searchedInput=this.googleSearch;      
                     }
-                },
-                methods: {
-                    potwierdz() {
-                        this.search = this.googleSearch
-                    },
-                    uzupelnij(miasto) {
-                        this.googleSearch = miasto.name;
-                        this.search = this.googleSearch;
-                    },
                 }
-            });
-      </script>
-</html>
+            },
+            methods:
+            {
+                enter() 
+                {
+                    this.filtrowaneMiasta=true;
+                    this.zmiana= true;
+                    this.zaznaczenie=-1;
+                    this.skupienie = false;
+                 },
+                dol()
+                {
+                    if(this.zaznaczenie<this.filtrowaneMiasta.length-1)
+                    {
+                        this.zaznaczenie+=1; 
+                    }
+                    else if(this.zaznaczenie==this.filtrowaneMiasta.length-1)
+                    {
+                        this.zaznaczenie=0; 
+                    }
+                 },
+                 gora()
+                 {
+                    if(this.zaznaczenie>0)
+                    {
+                        this.zaznaczenie-=1; 
+                    }
+                    else if(this.zaznaczenie==0)
+                    {
+                        this.zaznaczenie=this.filtrowaneMiasta.length-1;
+                    }
+                 },
+                 wybrane(i)
+                 {
+                    this.googleSearch=this.filtrowaneMiasta[i].name;
+                    this.enter();
+                 },
+                 aktywne()
+                 {
+                    if(this.googleSearch.length==0){
+                        this.zmiana=false;
+                    }
+                    return this.zmiana;
+                 },
+                 filtrowane_miasta_utworz(prawda)
+                 {
+                     if(prawda)
+                     {
+                        let result=this.cities.filter(miasto => miasto.name.includes(this.googleSearch));
+                        if(result.length>10)
+                        {
+                            this.filtrowaneMiasta= result.slice(1, 11);
+                        }
+                        else{
+                            this.filtrowaneMiasta= result;
+                        }
+                        this.zaznaczenie=-1;
+                     }   
+                 },
+                 wytluszcz(miasto)
+                {
+                    let re = new RegExp(this.searchedInput,"gi");
+                    let bolden="<b>"+miasto.name.replace(re, match=>
+                        {
+                         return "<span class='zwykly'>"+ match+"</span>";
+                        })+"</b>";
+                    console.log(bolden);
+                    return bolden;
+                }      
+            }
+        })
+    </script>
+    </html>
