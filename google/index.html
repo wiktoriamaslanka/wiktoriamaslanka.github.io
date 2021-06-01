@@ -6,7 +6,8 @@
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
         <link rel="icon" href="icon.png">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <link rel="stylesheet" type="text/css" href="style_results.css">
+        <link rel="stylesheet" type="text/css" href="style2.css">
+        <link rel="stylesheet" type="text/css" href="autocompleter.css">
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.12/dist/vue.js"></script>
 		<script src="cities.js" ></script>
 		<script src="https://kit.fontawesome.com/ffc589d0fc.js" crossorigin="anonymous"></script>
@@ -35,7 +36,7 @@
                             <img class="mikrofon" src="voice.png"/>
                             <button id="przycisk_szukaj"><img class="lupa" src="lupa_2.svg"/></button>
                         </div>
-                        <div  id="wypisz_miasta" class="lista_miasta" :class="{widok : googleSearch.length > 0 /*&& skupienie*/ && filtrowaneMiasta.length>0}" >
+                        <div  id="wypisz_miasta" class="lista_miast" :class="{widok : googleSearch.length > 0 /*&& skupienie*/ && filtrowaneMiasta.length>0}" >
                             <ul >
                                 <li  v-for="(miasto,index) in filtrowaneMiasta" >
                                     <div class="lista_elementow" :class="{klasa_skupienie:index == zaznaczenie}">
@@ -55,7 +56,7 @@
                 </div>
     
                 <div class="aplikacje">
-                    <section class="wszystko">Wszystko</section>
+                    <section class="apki wszystko">Wszystko</section>
                     <section class="apki">Grafika</section>
                     <section class="apki">Mapy</section>
                     <section class="apki">Wiadomości</section>
@@ -71,7 +72,7 @@
     
                 <div class="m-flex_container">
                     
-                    <div class="liczba_wynikow">Około 15 200 000 wyników (0,44 s) </div>
+                    <div class="liczba_wynikow"style="margin-top:-50px;">Około 15 200 000 wyników (0,44 s) </div>
                     <section class="m-flex_element"><a id="google_link">
                         <img  class="googleLogo" src="logo.png" /></a></section>
                     <form class="szukanie">
@@ -105,7 +106,7 @@
                 <div class="zawartosc" >
 
                     <div class="wynik">
-                        <div class="naglowek">
+                        <div class="naglowek"style="margin-top:-25px;">
                             <div class="hiperlacze">
                                 <div class="adres">     
                                     <cite class="skrot">
@@ -308,11 +309,11 @@
     
             <footer class="down">
                 <div class="textdown">
-                    <div class="panstwo">Polska<span class="lokacja"><span class="kropka"></span><b> 34-200, Kraków</b> - Z Twojego adresu internetowego - <a href="#">Użyj dokładnej lokalizacji</a> - <a href="#">Dowiedz się więcej</a></span></div>
+                    <div class="panstwo">Polska</div>
                 </div>
     
                 <div class="footer_container">
-                    <section class="f_flex_element 1">
+                    <section class="f_flex_element pierwsza">
                         <a class="sekcja-item link odstep">O nas</a>
                         <a class="sekcja-item link odstep">Reklamuj się</a>
                         <a class="sekcja-item link odstep">Dla firm</a>
@@ -322,7 +323,7 @@
 
                         
                     </section>
-                    <section class="f_flex_element 2">
+                    <section class="f_flex_element druga">
                         <a class="sekcja-item link">Pomoc</a>
                         <a class="sekcja-item link">Prywatność</a>
                         <a class="sekcja-item link">Warunki</a>

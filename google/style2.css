@@ -51,26 +51,6 @@ body .results{
     margin-left: -50px;
     cursor: pointer;
 }
-.results .page_nr:hover{
-    text-decoration: underline;
-}
-.results .blue {
-    color: #518dee;
-}
-.results .red {
-    color: rgb(241, 46, 46);
-}
-.results .green {
-    color: rgb(49, 177, 37);
-}
-
-.results .yellow {
-    color: rgb(247, 200, 59);
-}
-.results .pages .page_nr {
-    font-size: 14px;
-    font-weight: normal;
-}
 .results .help h3 {
     font-weight: normal;
     font-size: 19px;
@@ -287,7 +267,8 @@ body .results{
     cursor: pointer;
 }
 .results  img.googleLogo{
-    margin-top: 0px;
+    margin-top: -55px;
+    margin-bottom: 50px;
     display: initial;
     height: 28px;
     width: 86px;
@@ -326,8 +307,8 @@ body .results{
 }
 .results .szukaj{
     padding: 0px;
-    width:100%;
-    height:44px;
+    width:600px;
+    height:34px;
     display: flex;
     line-height:normal;
 }
@@ -338,7 +319,7 @@ body .results{
 }
 .results .wyszukiwanie:focus{
     margin-left: 20px;
-    height:14px;
+    height:8px;
     font-size: 17px;
 }
 .results .iks{
@@ -518,34 +499,10 @@ body .results{
     border-bottom: 1px solid #dadce0;
     border-top: 1px solid #dadce0;
 }
-.results .kropka{
-    background: #70757a;
-    border-radius: 100%;
-    display: inline-block;
-    height: 10px;
-    margin: 6px 4px 9px 0;
-    vertical-align: middle;
-    width: 10px;
-}
-.results .lokacja{
-    margin-left: 13px;
-    padding-left: 16px;
-    border-left: 1px solid #dadce0;
-    line-height: 15px;
-    color: #70757a;
-    font-size: 14px;
-}
 .results .textdown{
     white-space: nowrap;
     padding:0px;
     line-height: 40px;
-}
-.results .lokacja a{
-    text-decoration: none;
-    color: #70757a;
-}
-.results .lokacja b{
-    color: #3c4043;
 }
 .results .panstwo{
     margin-left: 195px;

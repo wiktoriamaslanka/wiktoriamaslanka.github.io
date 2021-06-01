@@ -25,7 +25,7 @@ body main{
     position:relative;
     align-self: center;
   justify-self: center;
-  margin-top:auto;
+  margin-top: 100px;
     height: 100%;
     width: 100%;
 }
@@ -387,7 +387,7 @@ body .link-:hover{
     padding:0px;
     cursor: pointer;
 }
-.lista_miasta{
+.lista_miast{
     display: none;
     line-height: 1.5rem;
     border-top: 1px solid #dfe1e5;
@@ -397,7 +397,7 @@ body .link-:hover{
     border-bottom-right-radius: 25%;
     z-index: 10;
 }
-.lista_miasta li{
+.lista_miast li{
     padding:2px 0px;
     cursor: pointer;
 }
